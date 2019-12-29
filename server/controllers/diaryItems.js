@@ -14,6 +14,52 @@ class DiaryItem {
       console.log(error);
     }
   }
+
+  static async get(req, res) {
+    try {
+      const data = await db.DiaryItem.findAll();
+      return res
+        .status(200)
+        .send({ status: 200, message: "Success", diaryItems: data });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      const data = await db.DiaryItem.findAll({
+        where: { id: req.params.diaryItemId, diaryId: req.params.diaryId }
+      });
+      if (data) {
+        await db.DiaryItem.update(
+          { content: req.body.content },
+          {
+            where: { id: Number(req.params.diaryId) }
+          }
+        );
+        await db.DiaryItem.update(
+          { complete: req.body.complete },
+          {
+            where: { id: Number(req.params.diaryId) }
+          }
+        );
+        const updated = await db.DiaryItem.findByPk(req.params.diaryId);
+        console.log(updated);
+        res
+          .status(200)
+          .send({ status: 200, message: "Success", updatedItem: updated });
+      } else {
+        res.status(404).send({
+          status: 404,
+          message: "Diary Item not found!",
+          diary: update
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default DiaryItem;
