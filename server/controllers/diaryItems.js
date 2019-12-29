@@ -17,10 +17,18 @@ class DiaryItem {
 
   static async get(req, res) {
     try {
-      const data = await db.DiaryItem.findAll();
-      return res
-        .status(200)
-        .send({ status: 200, message: "Success", diaryItems: data });
+      const data = await db.DiaryItem.findAll({
+        where: { diaryId: req.params.diaryId }
+      });
+      if (data.length === 0) {
+        return res
+          .status(404)
+          .send({ status: 404, message: "No diary items found" });
+      } else {
+        return res
+          .status(200)
+          .send({ status: 200, message: "Success", diaryItems: data });
+      }
     } catch (error) {
       console.log(error);
     }
