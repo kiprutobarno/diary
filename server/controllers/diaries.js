@@ -39,7 +39,27 @@ class Diary {
           }
         );
         const updated = await db.Diary.findByPk(req.params.diaryId);
-        res.status(200).send({ status: 200, message: "Success", diary: updated });
+        res
+          .status(200)
+          .send({ status: 200, message: "Success", diary: updated });
+      } else {
+        res
+          .status(404)
+          .send({ status: 404, message: "Diary not found!", diary: update });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  static async deleteDiary(req, res) {
+    try {
+      const data = await db.Diary.findByPk(req.params.diaryId);
+      if (data) {
+        await db.Diary.destroy({
+          where: { id: Number(req.params.diaryId) }
+        });
+        res.status(200).send({ status: 200, message: "Deleted" });
       } else {
         res
           .status(404)
