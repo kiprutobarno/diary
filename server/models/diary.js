@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  Diary.associate = models => {
+  Diary.associate = function(models) {
     // associations can be defined here
     Diary.hasMany(models.DiaryItem, {
       foreignKey: "diaryId",

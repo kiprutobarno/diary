@@ -1,11 +1,11 @@
-const diariesController = require("../controllers").diaries;
+import diary from "../controllers/diaries";
+import diaryItem from "../controllers/diaryItems";
 
-module.exports = app => {
-  app.get("/api", (req, res) =>
-    res.status(200).send({
-      message: "Welcome to the Diary API!"
-    })
-  );
+import { Router } from "express";
+const router = Router();
 
-  app.post("/api/diaries", diariesController.create);
-};
+router.post("/api/diaries", diary.createDiary);
+router.post("/api/diaries/:diaryId/items", diaryItem.create);
+router.get("/api/diaries", diary.getDiaries);
+
+export default router;

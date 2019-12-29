@@ -1,16 +1,25 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const DiaryItem = sequelize.define("DiaryItem", {
-    content: {
-      type: DataTypes.STRING,
-      allowNull: false
+  const DiaryItem = sequelize.define(
+    "DiaryItem",
+    {
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      complete: {
+        type: DataTypes.BOOLEAN,
+        default: false
+      },
+      diaryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
     },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  });
-  DiaryItem.associate = models => {
+    {}
+  );
+  DiaryItem.associate = function(models) {
+    // associations can be defined here
     DiaryItem.belongsTo(models.Diary, {
       foreignKey: "diaryId",
       onDelete: "CASCADE"

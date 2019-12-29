@@ -14,6 +14,15 @@ module.exports = {
       complete: {
         type: Sequelize.BOOLEAN
       },
+      diaryId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Diary",
+          key: "id",
+          as: "diaryId"
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
