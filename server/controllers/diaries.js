@@ -59,7 +59,7 @@ class Diary {
         await db.Diary.destroy({
           where: { id: Number(req.params.diaryId) }
         });
-        res.status(204).send({ status: 204, message: "Deleted" });
+        res.status(200).send({ status: 200, message: "Deleted" });
       } else {
         res
           .status(404)
