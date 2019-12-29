@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
+  
   DiaryItem.associate = function(models) {
     // associations can be defined here
     DiaryItem.belongsTo(models.Diary, {
