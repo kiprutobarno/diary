@@ -12,5 +12,6 @@ router.delete("/api/diaries/:diaryId", diary.deleteDiary);
 router.post("/api/diaries/:diaryId/items", diaryItem.create);
 router.get("/api/diaries/:diaryId/items", diaryItem.get);
 router.put("/api/diaries/:diaryId/items/:diaryItemId", diaryItem.update);
+router.delete("/api/diaries/:diaryId/items/:diaryItemId", diaryItem.delete);
 
 export default router;

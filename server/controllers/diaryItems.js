@@ -60,6 +60,26 @@ class DiaryItem {
       console.log(error);
     }
   }
+
+  static async delete(req, res) {
+    try {
+      const data = await db.DiaryItem.findAll({
+        where: { diaryId: req.params.diaryId, id: req.params.diaryItemId }
+      });
+      if (data) {
+        await db.DiaryItem.destroy({
+          where: { id: Number(req.params.diaryItemId) }
+        });
+        res.status(200).send({ status: 200, message: "Deleted" });
+      } else {
+        res
+          .status(404)
+          .send({ status: 404, message: "Diary not found!", diary: update });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default DiaryItem;
